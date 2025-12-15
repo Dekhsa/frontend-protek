@@ -6,17 +6,12 @@ import { MachineHealthChart } from "@/components/dashboard/MachineHealthChart";
 import { RecentAlertsTable } from "@/components/dashboard/RecentAlertsTable";
 import { SimulationControl } from "@/components/dashboard/SimulationControl";
 import { ChatWidget } from "@/components/chat/ChatWidget";
-import { api } from "@/lib/api";
+import { dashboardService } from "@/services/api";
 
 const Index = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["dashboard-summary"],
-    queryFn: async () => {
-      // Backend Anda ternyata mengembalikan paket lengkap di endpoint ini
-      const response = await api.getStats();
-      console.log("Full Dashboard Data:", response); // Cek console untuk memastikan
-      return response;
-    },
+    queryFn: dashboardService.getSummary,
     refetchInterval: 3000, 
   });
 

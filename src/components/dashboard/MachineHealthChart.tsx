@@ -44,7 +44,7 @@ export function MachineHealthChart() {
   }, [machines, selectedMachine]);
 
   // Fetch Data Sensor dari tabel sensor_data
-  const { data: sensorData, isLoading: loadingSensor, error } = useQuery({
+  const { data: sensorData = [], isLoading: loadingSensor, error } = useQuery<SensorDataPoint[]>({
     queryKey: ["sensor-data", selectedMachine], 
     queryFn: () => dashboardService.getSensorData(selectedMachine),
     refetchInterval: 5000, // Refresh setiap 5 detik
@@ -62,7 +62,7 @@ export function MachineHealthChart() {
   }, [sensorData, error]);
 
   // Format data untuk chart
-  const chartData: ChartDataPoint[] = sensorData?.map((item: SensorDataPoint) => ({
+  const chartData: ChartDataPoint[] = (sensorData || []).map((item) => ({
     time: new Date(item.insertion_time).toLocaleTimeString('id-ID', { 
       hour: '2-digit', 
       minute: '2-digit',
