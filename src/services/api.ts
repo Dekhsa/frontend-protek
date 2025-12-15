@@ -12,7 +12,7 @@ import type {
 } from "../types";
 
 // Gunakan URL Railway Anda jika di production, atau localhost saat dev
-const API_URL = import.meta.env.VITE_API_URL || "https://api-protek-production.up.railway.app/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
